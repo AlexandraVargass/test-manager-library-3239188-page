@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manager Library · Sistema de Gestión Bibliotecaria</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Navegación -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <div class="logo">
+        <span class="logo-icon">📚</span>
+        <span class="logo-text">Manager<strong>Library</strong></span>
+      </div>
+      <nav class="nav-links">
+        <a href="#features">Características</a>
+        <a href="#rules">Reglas de Negocio</a>
+        <a href="#architecture">Arquitectura SDD</a>
+        <a href="#categories">Categorías</a>
+      </nav>
+      <div class="nav-cta">
+        <a href="#architecture" class="btn btn-primary">Ver Especificación</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <main>
+    <section class="hero">
+      <div class="container hero-container">
+        <div class="hero-content">
+          <span class="badge">Prueba Técnica · SENA ADSO Ficha 3239188</span>
+          <h1>Control de biblioteca con <span>precisión arquitectónica</span></h1>
+          <p>
+            Plataforma integral para administración de catálogo editorial, directorio de socios y control estricto de préstamos bajo la metodología Spec-Driven Development (SDD).
+          </p>
+          <div class="hero-actions">
+            <a href="#features" class="btn btn-primary">Explorar Módulos</a>
+            <a href="#rules" class="btn btn-outline">Reglas del Sistema</a>
+          </div>
+        </div>
+        <div class="hero-card">
+          <div class="metric-card">
+            <div class="metric-number">5</div>
+            <div class="metric-label">Categorías Inmutables</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-number">14</div>
+            <div class="metric-label">Días de Préstamo</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-number">3</div>
+            <div class="metric-label">Libros Máx. por Socio</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-number">100%</div>
+            <div class="metric-label">Garantía en Motor DB</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Características -->
+    <section id="features" class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Módulos del Sistema</h2>
+          <p>Diseñado conforme al contrato de API y los criterios de aceptación formales.</p>
+        </div>
+        <div class="grid grid-3">
+          <div class="card">
+            <div class="card-icon">📖</div>
+            <h3>Catálogo de Libros</h3>
+            <p>Control de títulos, autor, ISBN-13 y existencias. Los ejemplares disponibles nunca descienden por debajo de cero gracias a restricciones de base de datos.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">👥</div>
+            <h3>Directorio de Socios</h3>
+            <p>Registro de socios con documento de identidad único y monitoreo de libros activos sin devolver en tiempo real.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🔄</div>
+            <h3>Préstamos Inmutables</h3>
+            <p>Registro de 1 a 3 ejemplares por socio con congelación instantánea de título, ISBN y categoría para preservar la integridad histórica.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">⏱️</div>
+            <h3>Control de Mora</h3>
+            <p>Detección automática de préstamos vencidos ordenados por días de retraso. Bloqueo inmediato de nuevos préstamos a socios morosos.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">📊</div>
+            <h3>Reporte de Más Prestados</h3>
+            <p>Métrica agregada exclusiva para administradores, agrupando por metadatos congelados dentro de un rango de fechas flexible.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🔐</div>
+            <h3>Seguridad y Roles</h3>
+            <p>Autenticación con JWT de 8 horas de duración. Diferenciación estricta de permisos entre administradores y bibliotecarios.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reglas de Negocio -->
+    <section id="rules" class="section bg-alt">
+      <div class="container">
+        <div class="section-header">
+          <h2>Principios y Reglas de Negocio</h2>
+          <p>Invariantes innegociables establecidas en la constitución del proyecto.</p>
+        </div>
+        <div class="grid grid-2">
+          <div class="rule-box">
+            <h4>RN-1 · Inventario de Ejemplares</h4>
+            <p>Los ejemplares disponibles siempre se mantienen entre 0 y el total. Modificar el total ajusta los disponibles en la misma diferencia y nunca permite valores negativos.</p>
+          </div>
+          <div class="rule-box">
+            <h4>RN-2 · Plazos y Límites</h4>
+            <p>El plazo máximo de préstamo es de 14 días calendario. Un socio nunca puede acumular más de 3 libros sin devolver de forma simultánea.</p>
+          </div>
+          <div class="rule-box">
+            <h4>RN-3 · Bloqueo por Mora</h4>
+            <p>Cualquier socio con al menos una línea de préstamo vencida queda inhabilitado automáticamente para solicitar nuevos libros hasta ponerse al día.</p>
+          </div>
+          <div class="rule-box">
+            <h4>RN-4 · Metadatos Congelados</h4>
+            <p>El título, ISBN y categoría del libro se congelan en la línea de préstamo en el instante exacto de la operación; no sufren modificaciones si el catálogo cambia luego.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Categorías -->
+    <section id="categories" class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Las 5 Categorías Oficiales</h2>
+          <p>Identificadores UUID estipulados en el modelo físico de datos.</p>
+        </div>
+        <div class="category-pills">
+          <span class="pill">📘 Novela</span>
+          <span class="pill">🔬 Ciencia</span>
+          <span class="pill">💻 Tecnología</span>
+          <span class="pill">🏛️ Historia</span>
+          <span class="pill">🧸 Infantil</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Arquitectura SDD -->
+    <section id="architecture" class="section bg-alt">
+      <div class="container">
+        <div class="section-header">
+          <h2>Arquitectura Modular SDD</h2>
+          <p>Separación de responsabilidades distribuidas en 6 repositorios.</p>
+        </div>
+        <div class="grid grid-2">
+          <div class="arch-card">
+            <h4>Backend (API) · PHP Laravel</h4>
+            <p>API RESTful con autenticación JWT, migraciones con UUID, manejo de transacciones atómicas con bloqueo pesimista y envoltura de error única.</p>
+          </div>
+          <div class="arch-card">
+            <h4>Frontend (App) · React SPA</h4>
+            <p>Interfaz de usuario interactiva y responsiva con gestión de catálogo, registro dinámico de préstamos y reportes gráficos.</p>
+          </div>
+          <div class="arch-card">
+            <h4>Infraestructura · Docker & PostgreSQL 16</h4>
+            <p>Contenedor de base de datos aislado que garantiza un motor vacío al arrancar y delega el esquema a las migraciones.</p>
+          </div>
+          <div class="arch-card">
+            <h4>Herramienta (Tool) · Siembra por API</h4>
+            <p>Script que consume la API para poblar libros, socios y préstamos de prueba sin acceder directamente a sentencias SQL.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <p>© 2026 Manager Library · SENA ADSO Ficha 3239188 · Desarrollado por <strong>Alexandra Vargas</strong></p>
+    </div>
+  </footer>
+</body>
+</html>
